@@ -1,15 +1,12 @@
 {
   "name": "@andrewray/glsl-deparser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "through stream that translates glsl-parser AST nodes into working glsl code",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
-  "dependencies": {
-    "cssauron-glsl": "X.X.X",
-    "through": "~1.1.2"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

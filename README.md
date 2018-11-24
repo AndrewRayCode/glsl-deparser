@@ -1,24 +1,20 @@
 # glsl-deparser
 
+Forked to add synchronous object handling
+
 ```javascript
+var Path = require("path");
 
-var Path = require('path')
+var tokenize = require("glsl-tokenizer/string"),
+  parse = require("glsl-parser"),
+  deparse = require("glsl-deparser");
 
-var tokenizer = require('glsl-tokenizer')()
-  , parser = require('glsl-parser')
-  , deparser = require('glsl-deparser')
-
-process.stdin
-  .pipe(tokenizer)
-  .pipe(parser())
-  .pipe(deparser())             // <-- deparser!
-  .pipe(process.stdout)
-
-process.stdin.resume()
-
+const tokens = tokenize(src);
+const ast = parse(tokens);
+console.log(deparse(ast, with_whitespace, indent));
 ```
 
-transform a stream of [glsl-parser](https://github.com/chrisdickinson/glsl-parser) AST nodes
+transform an AST from [glsl-parser](https://github.com/chrisdickinson/glsl-parser) AST nodes
 into strings.
 
 only operates on top-level statements emitted by `glsl-parser`, so the code it emits is executable
@@ -26,11 +22,9 @@ by webgl.
 
 # api
 
-### deparser(whitespace_enabled=true, tab_text='  ')
+### deparser(ast={}, whitespace_enabled=true, tab_text=' ')
 
-Creates a `readable`/`writable` stream.
-
-If no args are provided, `whitespace` is assumed to be enabled, and the tab text will be `'  '`.
+If no args are provided, `whitespace` is assumed to be enabled, and the tab text will be `' '`.
 
 If you pass `false` for the first arg, only syntactically significant whitespace will be emitted (it'll behave like a poor man's minifier).
 
